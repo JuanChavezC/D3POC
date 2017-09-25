@@ -1,39 +1,53 @@
 import * as d3 from 'd3';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { LineChart } from 'react-d3-basic';
+import { BarChart } from 'react-d3-basic';
 import Header from './Header';
 
 const data = [
-    {"value": 75, "index": 0},
-    {"value": 50, "index": 1},
-    {"value": 0, "index": 2},
-    {"value": 100, "index": 3}
+    {"week": "May 28", "suggestions": 349},
+    {"week": "Jun 4", "suggestions": 667},
+    {"week": "Jun 11", "suggestions": 611},
+    {"week": "Jun 18", "suggestions": 292},
+    {"week": "Jun 25", "suggestions": 403},
+    {"week": "Jul 2", "suggestions": 355},
+    {"week": "Jul 9", "suggestions": 673},
+    {"week": "Jul 16", "suggestions": 616},
+    {"week": "Jul 23", "suggestions": 298},
+    {"week": "Jul 30", "suggestions": 412},
+    {"week": "Aug 7", "suggestions": 351},
+    {"week": "Aug 14", "suggestions": 302}
 ];
 
-const chartSeries = [
+const width = 1000,
+    height = 500,
+    margins = {top: 50, right: 50, bottom: 50, left: 50},
+    chartSeries = [
         {
-            field: 'value',
-            name: 'Value',
-            color: '#000000'
+            field: 'suggestions'
         }
     ],
-    x = d => d.index,
-    xDomain = d3.extent(data, x),
-    xLabel = "Index",
-    y = d => d,
-    yDomain = d3.extent(data, d => d.value),
-    yLabel = "Value",
-    yLabelPosition = 'right';
+    x = function (d) {
+        return d.week;
+    },
+    xScale = 'ordinal',
+    y = function (d) {
+        return +d;
+    },
+    yScale = 'linear';
 
 ReactDOM.render(<Header />, document.getElementById('header'));
-ReactDOM.render(<LineChart data= {data}
-                           chartSeries= {chartSeries}
-                           x= {x}
-                           xDomain= {xDomain}
-                           xLabel = {xLabel}
-                           y= {y}
-                           yDomain= {yDomain}
-                           yLabel = {yLabel}
-                           yLabelPosition = {yLabelPosition}/>, document.getElementById('chart'));
+ReactDOM.render(<BarChart
+    showLegend={false}
+    data= {data}
+    width= {width}
+    height= {height}
+    margins= {margins}
+    chartSeries = {chartSeries}
+    x= {x}
+    xScale= {xScale}
+    y= {y}
+    yScale= {yScale}
+    />
+    , document.getElementById('chart'));
 
