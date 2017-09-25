@@ -1,53 +1,44 @@
-import * as d3 from 'd3';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BarChart } from 'react-d3-basic';
 import Header from './Header';
+import C3Chart from 'c3-react';
+import 'c3/c3.css';
 
-const data = [
-    {"week": "May 28", "suggestions": 349},
-    {"week": "Jun 4", "suggestions": 667},
-    {"week": "Jun 11", "suggestions": 611},
-    {"week": "Jun 18", "suggestions": 292},
-    {"week": "Jun 25", "suggestions": 403},
-    {"week": "Jul 2", "suggestions": 355},
-    {"week": "Jul 9", "suggestions": 673},
-    {"week": "Jul 16", "suggestions": 616},
-    {"week": "Jul 23", "suggestions": 298},
-    {"week": "Jul 30", "suggestions": 412},
-    {"week": "Aug 7", "suggestions": 351},
-    {"week": "Aug 14", "suggestions": 302}
+let data = [
+    {
+        key: "Suggestions by week",
+        values: [
+            {label: "May 28", value: 349},
+            {label: "Jun 4", value: 667},
+            {label: "Jun 11", value: 611},
+            {label: "Jun 18", value: 292},
+            {label: "Jun 25", value: 403},
+            {label: "Jul 2", value: 355},
+            {label: "Jul 9", value: 673},
+            {label: "Jul 16", value: 616},
+            {label: "Jul 23", value: 298},
+            {label: "Jul 30", value: 412},
+            {label: "Aug 7", value: 351},
+            {label: "Aug 14", value: 302}
+        ]
+    }
 ];
 
-const width = 1000,
-    height = 500,
-    margins = {top: 50, right: 50, bottom: 50, left: 50},
-    chartSeries = [
-        {
-            field: 'suggestions'
+let type = "bar";
+
+let options = {
+    axisLabel: {
+        x: {
+            show: false
+        },
+        y: {
+            show: false
         }
-    ],
-    x = function (d) {
-        return d.week;
     },
-    xScale = 'ordinal',
-    y = function (d) {
-        return +d;
-    },
-    yScale = 'linear';
+    legend: false
+};
 
 ReactDOM.render(<Header />, document.getElementById('header'));
-ReactDOM.render(<BarChart
-    showLegend={false}
-    data= {data}
-    width= {width}
-    height= {height}
-    margins= {margins}
-    chartSeries = {chartSeries}
-    x= {x}
-    xScale= {xScale}
-    y= {y}
-    yScale= {yScale}
-    />
-    , document.getElementById('chart'));
+ReactDOM.render(<C3Chart data={data} type={type} options={options}/>, document.getElementById('chart'));
+
 
