@@ -1,39 +1,61 @@
 import * as d3 from 'd3';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { LineChart } from 'react-d3-basic';
+import { PieChart } from 'react-d3-basic';
 import Header from './Header';
 
 const data = [
-    {"value": 75, "index": 0},
-    {"value": 50, "index": 1},
-    {"value": 0, "index": 2},
-    {"value": 100, "index": 3}
+    {"age": "2xd", "population": 10},
+    {"age": "d", "population": 40},
+    {"age": "2xw", "population": 30},
+    {"age": "w", "population": 10},
+    {"age": "mw", "population": 10}
 ];
 
-const chartSeries = [
+
+const width = 500,
+    height = 500,
+    radius = 200,
+    showLegend = true,
+    value = function (d) {
+        return +d.population;
+    },
+    name = function (d) {
+        return d.age;
+    },
+    chartSeries = [
         {
-            field: 'value',
-            name: 'Value',
-            color: '#000000'
+            "field": "2xd",
+            "name": "2x Daily"
+        },
+        {
+            "field": "d",
+            "name": "Daily"
+        },
+        {
+            "field": "2xw",
+            "name": "2x Weekly"
+        },
+        {
+            "field": "w",
+            "name": "Weekly"
+        },
+        {
+            "field": "mw",
+            "name": "> Weekly"
         }
-    ],
-    x = d => d.index,
-    xDomain = d3.extent(data, x),
-    xLabel = "Index",
-    y = d => d,
-    yDomain = d3.extent(data, d => d.value),
-    yLabel = "Value",
-    yLabelPosition = 'right';
+    ];
+
 
 ReactDOM.render(<Header />, document.getElementById('header'));
-ReactDOM.render(<LineChart data= {data}
-                           chartSeries= {chartSeries}
-                           x= {x}
-                           xDomain= {xDomain}
-                           xLabel = {xLabel}
-                           y= {y}
-                           yDomain= {yDomain}
-                           yLabel = {yLabel}
-                           yLabelPosition = {yLabelPosition}/>, document.getElementById('chart'));
+ReactDOM.render(<PieChart
+    data= {data}
+    width= {width}
+    height= {height}
+    radius= {radius}
+    chartSeries= {chartSeries}
+    value = {value}
+    name = {name}
+    pieSort = {d3.descending}
+/>, document.getElementById('chart'));
 
