@@ -105,8 +105,8 @@ g.selectAll(".bar")
 * **Library Reference:** [Site](https://d3js.org/)
 * **React Library Name:** "react-d3-*"
 * **React Library Reference:** [Site](http://www.reactd3.org/)
-
-###C3.js library example
+z
+### C3.js library example
 Here is an example for bar chart.
 This code uses C3.js with React.js
 ```
